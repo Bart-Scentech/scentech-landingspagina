@@ -270,6 +270,58 @@
       color: var(--subtle);
     }
 
+    /* ─── HOTEL SECRET ─── */
+    .hotel-secret {
+      background: var(--white);
+      padding: clamp(60px, 8vw, 100px) 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hotel-secret__container {
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .hotel-secret__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .hotel-secret__content {
+      font-size: 16px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .hotel-secret__content p {
+      margin-bottom: 24px;
+    }
+
+    .hotel-secret__highlight {
+      background: var(--cream);
+      border-left: 4px solid var(--gold);
+      padding: 32px;
+      margin: 40px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .hotel-secret__highlight h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .hotel-secret__highlight p {
+      margin-bottom: 0;
+      color: var(--dark);
+    }
+
     /* ─── MOBILE ─── */
     @media (max-width: 860px) {
       .hero {
@@ -298,6 +350,15 @@
       .btn-primary,
       .btn-secondary {
         width: 100%;
+      }
+      
+      .hotel-secret {
+        padding: 60px 24px;
+      }
+      
+      .hotel-secret__highlight {
+        padding: 24px;
+        margin: 32px 0;
       }
     }
   </style>
@@ -360,6 +421,26 @@
       </div>
     </div>
 
+  </section>
+
+  <!-- ═══════ HET GEHEIM VAN HET HOTEL ═══════ -->
+  <section class="hotel-secret" id="redenen">
+    <div class="hotel-secret__container">
+      <h2 class="hotel-secret__title">Waarom ruiken luxe hotels altijd perfect?</h2>
+      
+      <div class="hotel-secret__content">
+        <p>Dat komt niet door geurstokjes.</p>
+        
+        <p>Achter de schermen gebruiken ze professionele geurapparaten. Maar die geurapparaten zijn anders dan wat jij thuis waarschijnlijk kent. Thuis verdun je je olie vaak met water, wat vervolgens als een vochtige mist wordt verspreid.</p>
+        
+        <div class="hotel-secret__highlight">
+          <h3>Het geheim: Cold Air Diffusion</h3>
+          <p>In hotels maken ze gebruik van <strong>Cold Air Diffusion</strong>. Een technologie waarbij de pure olie onder hoge druk wordt verneveld tot onzichtbare microdeeltjes die zich verspreiden via de luchtstroom. Zonder water of hitte, en zonder neer te slaan op je meubels.</p>
+        </div>
+        
+        <p>En precies deze hotel-technologie hebben wij nu, in een compact en stijlvol design, beschikbaar gemaakt voor consumenten.</p>
+      </div>
+    </div>
   </section>
 
 </body>
