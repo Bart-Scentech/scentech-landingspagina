@@ -1,0 +1,402 @@
+{%- liquid
+  assign section_bg = section.settings.section_bg
+  assign card_bg = section.settings.card_bg
+  assign card_border = section.settings.card_border
+  assign text_color = section.settings.text_color
+  assign subtext_color = section.settings.subtext_color
+  assign checkmark_color = section.settings.checkmark_color
+  assign btn_bg = section.settings.btn_bg
+  assign btn_hover = section.settings.btn_hover
+  assign btn_text = section.settings.btn_text
+  
+  assign heading_font = section.settings.heading_font
+  assign body_font = section.settings.body_font
+-%}
+
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+
+  .scentech-promo-hor-{{ section.id }} {
+    --section-bg: {{ section_bg }};
+    --card-bg: {{ card_bg }};
+    --card-border: {{ card_border }};
+    --text-color: {{ text_color }};
+    --subtext-color: {{ subtext_color }};
+    --checkmark-color: {{ checkmark_color }};
+    --btn-bg: {{ btn_bg }};
+    --btn-hover: {{ btn_hover }};
+    --btn-text: {{ btn_text }};
+    
+    --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    
+    background: var(--section-bg);
+    padding: clamp(40px, 6vw, 80px) 24px;
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-body);
+  }
+
+  .scentech-promo-hor-{{ section.id }} *, .scentech-promo-hor-{{ section.id }} *::before, .scentech-promo-hor-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__container {
+    max-width: 900px;
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: {{ section.settings.card_radius }}px;
+    display: grid;
+    /* Ratio 4:5 left/right approx */
+    grid-template-columns: 4fr 5fr;
+    padding: 16px;
+    gap: 32px;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  }
+
+  /* REVERSE OPTION */
+  {% if section.settings.image_position == 'right' %}
+    .scentech-promo-hor-{{ section.id }}__content { order: 1; padding: 16px 0 16px 24px; }
+    .scentech-promo-hor-{{ section.id }}__image { order: 2; }
+  {% else %}
+    .scentech-promo-hor-{{ section.id }}__image { order: 1; }
+    .scentech-promo-hor-{{ section.id }}__content { order: 2; padding: 16px 24px 16px 0; }
+  {% endif %}
+
+  .scentech-promo-hor-{{ section.id }}__image {
+    border-radius: {{ section.settings.image_radius }}px;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__image img, .scentech-promo-hor-{{ section.id }}__image svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    aspect-ratio: 3/4;
+  }
+  
+  .scentech-promo-hor-{{ section.id }}__image svg {
+    background: #E5DCD3;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__title {
+    font-family: var(--font-heading);
+    font-size: clamp(20px, 2.5vw, 24px);
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__desc {
+    font-size: 15px;
+    color: var(--subtext-color);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__desc strong {
+    color: var(--text-color);
+    font-weight: 600;
+    display: block;
+    margin-top: 8px;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__usps {
+    list-style: none;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__usps li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--subtext-color);
+  }
+
+  .scentech-promo-hor-{{ section.id }}__usps li::before {
+    content: '✓';
+    color: var(--checkmark-color);
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 24px;
+    width: fit-content;
+    border-radius: {{ section.settings.btn_radius }}px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .scentech-promo-hor-{{ section.id }}__btn:hover {
+    background: var(--btn-hover);
+  }
+
+  @media (max-width: 860px) {
+    .scentech-promo-hor-{{ section.id }} {
+      padding: 40px 24px;
+    }
+    .scentech-promo-hor-{{ section.id }}__container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .scentech-promo-hor-{{ section.id }}__image {
+      order: -1 !important; /* Image always on top for mobile */
+    }
+    .scentech-promo-hor-{{ section.id }}__image img, .scentech-promo-hor-{{ section.id }}__image svg {
+      aspect-ratio: 1/1; /* Minder langwerpig op mobiel */
+    }
+    .scentech-promo-hor-{{ section.id }}__content {
+      padding: 0 8px 8px 8px !important;
+    }
+    .scentech-promo-hor-{{ section.id }}__btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="scentech-promo-hor-{{ section.id }}">
+  <div class="scentech-promo-hor-{{ section.id }}__container">
+    
+    <div class="scentech-promo-hor-{{ section.id }}__image">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+      {% else %}
+        {{ 'product-3' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+    
+    <div class="scentech-promo-hor-{{ section.id }}__content">
+      <h2 class="scentech-promo-hor-{{ section.id }}__title">{{ section.settings.title }}</h2>
+      
+      <div class="scentech-promo-hor-{{ section.id }}__desc">
+        {{ section.settings.description_html }}
+      </div>
+      
+      <ul class="scentech-promo-hor-{{ section.id }}__usps">
+        {% if section.settings.usp_1 != blank %}<li>{{ section.settings.usp_1 }}</li>{% endif %}
+        {% if section.settings.usp_2 != blank %}<li>{{ section.settings.usp_2 }}</li>{% endif %}
+        {% if section.settings.usp_3 != blank %}<li>{{ section.settings.usp_3 }}</li>{% endif %}
+      </ul>
+      
+      {% if section.settings.btn_text != blank %}
+        <a href="{{ section.settings.btn_link }}" class="scentech-promo-hor-{{ section.id }}__btn">{{ section.settings.btn_text }}</a>
+      {% endif %}
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Horizontal Promo Card",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position (Desktop)",
+      "options": [
+        { "value": "left", "label": "Image Left" },
+        { "value": "right", "label": "Image Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Smart Aroma Diffuser 2"
+    },
+    {
+      "type": "html",
+      "id": "description_html",
+      "label": "Description Text",
+      "default": "Onze diffusers leveren een hotelwaardige geurbeleving dankzij geavanceerde Cold-Air Diffusion Technology. Luxe geur met één druk op de knop.<br><br><strong>Nu GRATIS vanaf 7 geuren!</strong>"
+    },
+    {
+      "type": "header",
+      "content": "USPs (Checkmarks)"
+    },
+    {
+      "type": "text",
+      "id": "usp_1",
+      "label": "USP 1",
+      "default": "30 dagen lang zonder omkijken"
+    },
+    {
+      "type": "text",
+      "id": "usp_2",
+      "label": "USP 2",
+      "default": "Bereik tot maar liefst 65m²"
+    },
+    {
+      "type": "text",
+      "id": "usp_3",
+      "label": "USP 3",
+      "default": "Uniek antilek systeem (veilig)"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Claim jouw gratis diffuser"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Image (Aspect Ratio 3:4 advised)"
+    },
+    {
+      "type": "header",
+      "content": "Styling & Colors"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Card Corner Radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Image Corner Radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Corner Radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#FAF7F4"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#F4EFEB"
+    },
+    {
+      "type": "color",
+      "id": "card_border",
+      "label": "Card Border",
+      "default": "#E5DCD3"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Title Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Body Text Color",
+      "default": "#4A4A4A"
+    },
+    {
+      "type": "color",
+      "id": "checkmark_color",
+      "label": "Checkmark Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#E5DCD3"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover",
+      "label": "Button Hover Background",
+      "default": "#D5C8BB"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "inter_n5"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body Font",
+      "default": "inter_n4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Horizontal Promo Card"
+    }
+  ]
+}
+{% endschema %}
