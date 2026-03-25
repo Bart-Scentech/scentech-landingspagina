@@ -604,93 +604,40 @@
       background: #D5C8BB;
     }
 
-    /* ─── STICKY CTA BOTTOM BAR ─── */
+    /* ─── STICKY CTA (DESKTOP: FLOATING BUTTON) ─── */
     .sticky-cta {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--white);
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+      bottom: 32px;
+      right: 32px;
       z-index: 1000;
-      transform: translateY(100%); /* Verborgen by default */
+      transform: translateY(150%);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Klasse om de balk in beeld te schuiven via Javascript */
     .sticky-cta.is-visible {
       transform: translateY(0);
     }
 
-    .sticky-cta__product {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .sticky-cta__image {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      object-fit: cover;
-      border: 1px solid var(--border);
-    }
-
-    .sticky-cta__text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sticky-cta__title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 2px;
-    }
-
-    .sticky-cta__subtitle {
-      font-size: 12px;
-      color: var(--subtle);
-    }
-
-    .sticky-cta__price-box {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .sticky-cta__price {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--dark);
-      text-align: right;
-    }
-
-    .sticky-cta__price span {
-      display: block;
-      font-size: 12px;
-      color: var(--subtle);
-      font-weight: 400;
+    .sticky-cta__product, .sticky-cta__price {
+      display: none; /* Hide fluff on desktop */
     }
 
     .sticky-cta__btn {
+      display: inline-block;
       background: var(--dark);
       color: var(--white);
-      border: none;
-      padding: 14px 32px;
-      font-size: 14px;
+      padding: 16px 40px;
+      font-size: 16px;
       font-weight: 600;
-      border-radius: 6px;
+      border-radius: 50px;
       text-decoration: none;
-      transition: background 0.2s;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      transition: transform 0.2s, background 0.2s;
     }
 
     .sticky-cta__btn:hover {
       background: #333;
+      transform: scale(1.02);
     }
 
     /* ─── MOBILE ─── */
@@ -808,19 +755,36 @@
       }
       
       .sticky-cta {
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background: var(--white);
         padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
       }
       
+      .sticky-cta__product {
+        display: flex;
+      }
+
       .sticky-cta__image, .sticky-cta__subtitle, .sticky-cta__price {
         display: none; /* Hide fluff on mobile */
       }
       
       .sticky-cta__title {
         font-size: 15px;
+        font-weight: 600;
+        color: var(--dark);
       }
       
       .sticky-cta__btn {
         padding: 12px 24px;
+        font-size: 14px;
+        border-radius: 6px;
+        box-shadow: none;
       }
     }
   </style>
