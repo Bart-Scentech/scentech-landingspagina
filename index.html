@@ -1096,28 +1096,37 @@
     </div>
   </section>
 
+  <!-- ═══════ REVIEWS SECTIE (placeholder) ═══════ -->
+  <div id="reviews-anchor"></div>
+
   <!-- ═══════ STICKY CTA BAR ═══════ -->
   <div class="sticky-cta" id="stickyCta">
     <a href="#" class="sticky-cta__btn">Save 52% + Free Shipping</a>
     <div class="sticky-cta__trust">⭐⭐⭐⭐⭐ 4.8 stars • 85K+ reviews • 1M+ members</div>
   </div>
 
-  <!-- Javascript for scroll detection (33% height trigger) -->
+  <!-- Javascript for scroll detection -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const stickyCta = document.getElementById("stickyCta");
-      
       const banner = document.querySelector(".announcement-banner");
+      const SHOW_THRESHOLD = 0.33;   // verschijn na 33% scroll
+      const HIDE_NEAR_BOTTOM = 300;  // verdwijn als je binnen 300px van de onderkant bent
+
       window.addEventListener("scroll", function() {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPosition = window.scrollY;
-        
-        if (scrollHeight > 0 && scrollPosition > (scrollHeight * 0.33)) {
+        const distanceFromBottom = scrollHeight - scrollPosition;
+
+        const pastThreshold = scrollHeight > 0 && scrollPosition > (scrollHeight * SHOW_THRESHOLD);
+        const nearBottom = distanceFromBottom < HIDE_NEAR_BOTTOM;
+
+        if (pastThreshold && !nearBottom) {
           stickyCta.classList.add("is-visible");
           if (banner) banner.classList.add("is-hidden");
         } else {
           stickyCta.classList.remove("is-visible");
-          if (banner) banner.classList.remove("is-hidden");
+          if (!nearBottom && banner) banner.classList.remove("is-hidden");
         }
       });
     });
