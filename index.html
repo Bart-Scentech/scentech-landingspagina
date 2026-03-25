@@ -290,6 +290,19 @@
       gap: clamp(40px, 6vw, 80px);
       align-items: center;
     }
+
+    .hotel-secret__image {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .hotel-secret__image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
     @media (max-width: 860px) {
       .hotel-secret__container {
         grid-template-columns: 1fr;
