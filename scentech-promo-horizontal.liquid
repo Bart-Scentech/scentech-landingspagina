@@ -158,58 +158,58 @@
       padding: 32px 16px;
     }
     .scentech-promo-hor-{{ section.id }}__container {
-      /* MOBILE SPECIFIC: SIDE BY SIDE */
-      grid-template-columns: 35% 1fr;
-      padding: 12px;
-      gap: 16px;
+      /* MOBILE STACKED */
+      grid-template-columns: 1fr;
+      padding: 16px;
+      gap: 24px;
     }
     
-    /* Keep image ALWAYS on the left on mobile for consistency */
+    /* Image ALWAYS on the top on mobile for stacked layout */
     .scentech-promo-hor-{{ section.id }}__image {
-      order: 1 !important; 
+      order: -1 !important; 
     }
     .scentech-promo-hor-{{ section.id }}__content {
       order: 2 !important;
-      padding: 4px 0 !important;
+      padding: 0 4px 8px 4px !important;
     }
 
     .scentech-promo-hor-{{ section.id }}__image img, .scentech-promo-hor-{{ section.id }}__image svg {
-      aspect-ratio: 3/4; 
+      aspect-ratio: 4/3; 
     }
     
-    /* HIDE FLUFF ON MOBILE TO SAVE SPACE */
+    /* We have space now, so we can show the desktop-only text again */
     .desktop-only {
-      display: none !important;
+      display: block !important;
     }
     
     .scentech-promo-hor-{{ section.id }}__title {
-      font-size: 15px;
-      margin-bottom: 4px;
+      font-size: 20px;
+      margin-bottom: 8px;
     }
     
     .scentech-promo-hor-{{ section.id }}__offer {
-      font-size: 13px;
-      margin-bottom: 12px;
+      font-size: 15px;
+      margin-bottom: 16px;
     }
     
     .scentech-promo-hor-{{ section.id }}__usps {
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     .scentech-promo-hor-{{ section.id }}__usps li {
-      font-size: 12px;
-      margin-bottom: 4px;
-      gap: 6px;
+      font-size: 14px;
+      margin-bottom: 8px;
+      gap: 10px;
     }
     
     .scentech-promo-hor-{{ section.id }}__usps li::before {
-      font-size: 10px;
+      font-size: 12px;
     }
 
     .scentech-promo-hor-{{ section.id }}__btn {
       width: 100%;
-      padding: 10px 12px;
-      font-size: 13px;
+      padding: 14px 16px;
+      font-size: 15px;
     }
   }
 </style>

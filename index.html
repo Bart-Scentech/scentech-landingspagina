@@ -755,57 +755,56 @@
       }
       
       .promo-block__container {
-        /* Keep it horizontal on mobile: image 35%, text 65% */
-        grid-template-columns: 35% 1fr;
-        padding: 12px;
-        gap: 16px;
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 24px;
       }
       
       .promo-block__image {
-        order: 1 !important; /* Keep image on left */
+        order: -1 !important; /* Image on top */
       }
       
       .promo-block__image img {
-        aspect-ratio: 3/4; /* Keep it tall */
+        aspect-ratio: 4/3; /* Slightly shorter than square on mobile */
       }
       
       .promo-block__content {
-        padding: 4px 0;
+        padding: 0 4px 8px 4px;
       }
       
       .desktop-only {
-        display: none; /* Hide long text on mobile to keep it short */
+        display: block; /* We have space now since it stacks */
       }
 
       .promo-block__title {
-        font-size: 15px;
-        margin-bottom: 4px;
+        font-size: 20px;
+        margin-bottom: 8px;
       }
       
       .promo-block__offer {
-        font-size: 13px;
-        margin-bottom: 12px;
+        font-size: 15px;
+        margin-bottom: 16px;
       }
       
       .promo-block__usps {
-        margin-bottom: 16px;
+        margin-bottom: 24px;
       }
 
       .promo-block__usps li {
-        font-size: 12px;
-        margin-bottom: 4px;
-        gap: 6px;
+        font-size: 14px;
+        margin-bottom: 8px;
+        gap: 10px;
       }
       
       .promo-block__usps li::before {
-        font-size: 10px;
+        font-size: 12px;
       }
       
       .promo-block__btn {
         width: 100%;
         text-align: center;
-        padding: 10px 12px;
-        font-size: 13px;
+        padding: 14px 16px;
+        font-size: 15px;
       }
       
       .sticky-cta {
