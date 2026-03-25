@@ -56,22 +56,48 @@
     left: 0;
     right: 0;
     z-index: 100;
-    height: var(--banner-h);
+    min-height: var(--banner-h);
+    padding: 8px 16px;
     background: var(--announcement-bg);
     color: var(--announcement-text);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    flex-wrap: wrap;
+    column-gap: 12px;
+    row-gap: 4px;
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.04em;
+    text-align: center;
+    line-height: 1.4;
   }
+  
+  .scentech-blog-hero-{{ section.id }} .announcement-banner span {
+    color: inherit;
+  }
+  
+  .scentech-blog-hero-{{ section.id }} .announcement-banner strong {
+    color: var(--accent-color);
+    font-weight: 600;
+  }
+
   .scentech-blog-hero-{{ section.id }} .announcement-banner.is-hidden {
     transform: translateY(-100%);
     {% else %}
     display: none;
     {% endif %}
+  }
+
+  @media (max-width: 860px) {
+    .scentech-blog-hero-{{ section.id }} .announcement-banner {
+      flex-direction: column;
+      padding: 10px 16px;
+      font-size: 12px;
+    }
+    .scentech-blog-hero-{{ section.id }} .announcement-banner .divider {
+      display: none;
+    }
   }
 
   /* ─── HERO ─── */
@@ -392,7 +418,7 @@
       "type": "html",
       "id": "announcement_html",
       "label": "Banner HTML",
-      "default": "🎁 <span style=\"color: var(--accent-color); font-weight: 600;\">Gratis diffuser</span>&nbsp;vanaf 5 geuren — Tijdelijk aanbod"
+      "default": "<span>🎁 <strong>Gratis diffuser</strong> vanaf 5 geuren</span> <span class=\"divider\">|</span> <span>⭐⭐⭐⭐⭐ 4.8 stars • 85K+ reviews</span>"
     },
     {
       "type": "color",
