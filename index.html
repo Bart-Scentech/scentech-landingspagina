@@ -554,14 +554,14 @@
       font-size: 15px;
       color: var(--mid);
       line-height: 1.6;
-      margin-bottom: 16px;
+      margin-bottom: 8px;
     }
 
-    .promo-block__desc strong {
+    .promo-block__offer {
+      font-size: 16px;
       color: var(--dark);
       font-weight: 600;
-      display: block;
-      margin-top: 8px;
+      margin-bottom: 16px;
     }
 
     .promo-block__usps {
@@ -751,26 +751,61 @@
       }
       
       .promo-block {
-        padding: 40px 24px;
+        padding: 32px 16px;
       }
       
       .promo-block__container {
-        grid-template-columns: 1fr;
-        padding: 16px;
-        gap: 24px;
+        /* Keep it horizontal on mobile: image 35%, text 65% */
+        grid-template-columns: 35% 1fr;
+        padding: 12px;
+        gap: 16px;
+      }
+      
+      .promo-block__image {
+        order: 1 !important; /* Keep image on left */
       }
       
       .promo-block__image img {
-        aspect-ratio: 1/1; /* Wat minder extreem langwerpig op mobiel */
+        aspect-ratio: 3/4; /* Keep it tall */
       }
       
       .promo-block__content {
-        padding: 0 8px 8px 8px;
+        padding: 4px 0;
+      }
+      
+      .desktop-only {
+        display: none; /* Hide long text on mobile to keep it short */
+      }
+
+      .promo-block__title {
+        font-size: 15px;
+        margin-bottom: 4px;
+      }
+      
+      .promo-block__offer {
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+      
+      .promo-block__usps {
+        margin-bottom: 16px;
+      }
+
+      .promo-block__usps li {
+        font-size: 12px;
+        margin-bottom: 4px;
+        gap: 6px;
+      }
+      
+      .promo-block__usps li::before {
+        font-size: 10px;
       }
       
       .promo-block__btn {
         width: 100%;
         text-align: center;
+        padding: 10px 12px;
+        font-size: 13px;
       }
       
       .sticky-cta {
@@ -934,15 +969,15 @@
       <div class="promo-block__content">
         <h2 class="promo-block__title">Smart Aroma Diffuser 2</h2>
         
-        <p class="promo-block__desc">
+        <p class="promo-block__desc desktop-only">
           Onze diffusers leveren een hotelwaardige geurbeleving dankzij geavanceerde Cold-Air Diffusion Technology. Luxe geur met één druk op de knop.
-          <strong>Nu GRATIS vanaf 7 geuren!</strong>
         </p>
+        <p class="promo-block__offer"><strong>Nu GRATIS vanaf 7 geuren!</strong></p>
         
         <ul class="promo-block__usps">
           <li>30 dagen lang zonder omkijken</li>
           <li>Bereik tot maar liefst 65m²</li>
-          <li>Uniek antilek systeem (veilig)</li>
+          <li>Uniek antilek systeem</li>
         </ul>
         
         <a href="#" class="promo-block__btn">Claim jouw gratis diffuser</a>

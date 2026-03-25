@@ -103,14 +103,14 @@
     font-size: 15px;
     color: var(--subtext-color);
     line-height: 1.6;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
-  .scentech-promo-hor-{{ section.id }}__desc strong {
+  .scentech-promo-hor-{{ section.id }}__offer {
+    font-size: 16px;
     color: var(--text-color);
     font-weight: 600;
-    display: block;
-    margin-top: 8px;
+    margin-bottom: 16px;
   }
 
   .scentech-promo-hor-{{ section.id }}__usps {
@@ -155,23 +155,61 @@
 
   @media (max-width: 860px) {
     .scentech-promo-hor-{{ section.id }} {
-      padding: 40px 24px;
+      padding: 32px 16px;
     }
     .scentech-promo-hor-{{ section.id }}__container {
-      grid-template-columns: 1fr;
-      gap: 24px;
+      /* MOBILE SPECIFIC: SIDE BY SIDE */
+      grid-template-columns: 35% 1fr;
+      padding: 12px;
+      gap: 16px;
     }
+    
+    /* Keep image ALWAYS on the left on mobile for consistency */
     .scentech-promo-hor-{{ section.id }}__image {
-      order: -1 !important; /* Image always on top for mobile */
-    }
-    .scentech-promo-hor-{{ section.id }}__image img, .scentech-promo-hor-{{ section.id }}__image svg {
-      aspect-ratio: 1/1; /* Minder langwerpig op mobiel */
+      order: 1 !important; 
     }
     .scentech-promo-hor-{{ section.id }}__content {
-      padding: 0 8px 8px 8px !important;
+      order: 2 !important;
+      padding: 4px 0 !important;
     }
+
+    .scentech-promo-hor-{{ section.id }}__image img, .scentech-promo-hor-{{ section.id }}__image svg {
+      aspect-ratio: 3/4; 
+    }
+    
+    /* HIDE FLUFF ON MOBILE TO SAVE SPACE */
+    .desktop-only {
+      display: none !important;
+    }
+    
+    .scentech-promo-hor-{{ section.id }}__title {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    
+    .scentech-promo-hor-{{ section.id }}__offer {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    
+    .scentech-promo-hor-{{ section.id }}__usps {
+      margin-bottom: 16px;
+    }
+
+    .scentech-promo-hor-{{ section.id }}__usps li {
+      font-size: 12px;
+      margin-bottom: 4px;
+      gap: 6px;
+    }
+    
+    .scentech-promo-hor-{{ section.id }}__usps li::before {
+      font-size: 10px;
+    }
+
     .scentech-promo-hor-{{ section.id }}__btn {
       width: 100%;
+      padding: 10px 12px;
+      font-size: 13px;
     }
   }
 </style>
@@ -190,9 +228,17 @@
     <div class="scentech-promo-hor-{{ section.id }}__content">
       <h2 class="scentech-promo-hor-{{ section.id }}__title">{{ section.settings.title }}</h2>
       
-      <div class="scentech-promo-hor-{{ section.id }}__desc">
+      {% if section.settings.description_html != blank %}
+      <div class="scentech-promo-hor-{{ section.id }}__desc desktop-only">
         {{ section.settings.description_html }}
       </div>
+      {% endif %}
+
+      {% if section.settings.offer_text != blank %}
+      <div class="scentech-promo-hor-{{ section.id }}__offer">
+        {{ section.settings.offer_text }}
+      </div>
+      {% endif %}
       
       <ul class="scentech-promo-hor-{{ section.id }}__usps">
         {% if section.settings.usp_1 != blank %}<li>{{ section.settings.usp_1 }}</li>{% endif %}
@@ -239,8 +285,14 @@
     {
       "type": "html",
       "id": "description_html",
-      "label": "Description Text",
-      "default": "Onze diffusers leveren een hotelwaardige geurbeleving dankzij geavanceerde Cold-Air Diffusion Technology. Luxe geur met één druk op de knop.<br><br><strong>Nu GRATIS vanaf 7 geuren!</strong>"
+      "label": "Description Text (Desktop Only)",
+      "default": "Onze diffusers leveren een hotelwaardige geurbeleving dankzij geavanceerde Cold-Air Diffusion Technology. Luxe geur met één druk op de knop."
+    },
+    {
+      "type": "html",
+      "id": "offer_text",
+      "label": "Bold Offer Text",
+      "default": "<strong>Nu GRATIS vanaf 7 geuren!</strong>"
     },
     {
       "type": "header",
@@ -262,7 +314,7 @@
       "type": "text",
       "id": "usp_3",
       "label": "USP 3",
-      "default": "Uniek antilek systeem (veilig)"
+      "default": "Uniek antilek systeem"
     },
     {
       "type": "header",
