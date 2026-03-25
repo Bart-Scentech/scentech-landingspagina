@@ -1,0 +1,458 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.text_color
+  assign subtext_color = section.settings.subtext_color
+  assign accent_color = section.settings.accent_color
+  
+  assign heading_font = section.settings.heading_font
+  assign body_font = section.settings.body_font
+-%}
+
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+
+  .scentech-reason-{{ section.id }} {
+    --bg-color: {{ bg_color }};
+    --text-color: {{ text_color }};
+    --subtext-color: {{ subtext_color }};
+    --accent-color: {{ accent_color }};
+    
+    --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    
+    background: var(--bg-color);
+    padding: clamp(60px, 8vw, 100px) 24px;
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-body);
+  }
+
+  .scentech-reason-{{ section.id }} *, .scentech-reason-{{ section.id }} *::before, .scentech-reason-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  .scentech-reason-{{ section.id }}__container {
+    max-width: 1080px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+
+  /* REVERSING LAYOUT: If image is left vs right */
+  {% if section.settings.image_position == 'left' %}
+    .scentech-reason-{{ section.id }}__text-col {
+      order: 2;
+    }
+    .scentech-reason-{{ section.id }}__image-col {
+      order: 1;
+    }
+  {% else %}
+    .scentech-reason-{{ section.id }}__text-col {
+      order: 1;
+    }
+    .scentech-reason-{{ section.id }}__image-col {
+      order: 2;
+    }
+  {% endif %}
+
+  .scentech-reason-{{ section.id }}__image-col {
+    position: relative;
+  }
+
+  .scentech-reason-{{ section.id }}__image {
+    border-radius: {{ section.settings.corner_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  }
+
+  .scentech-reason-{{ section.id }}__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+  }
+
+  .scentech-reason-{{ section.id }}__image-badge {
+    position: absolute;
+    bottom: -20px;
+    {% if section.settings.image_position == 'left' %}
+      right: -20px;
+    {% else %}
+      left: -20px;
+    {% endif %}
+    background: #FFFFFF;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+  }
+
+  .scentech-reason-{{ section.id }}__image-badge-icon {
+    font-size: 20px;
+  }
+
+  .scentech-reason-{{ section.id }}__image-badge-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.3;
+  }
+
+  .scentech-reason-{{ section.id }}__text-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scentech-reason-{{ section.id }}__eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .scentech-reason-{{ section.id }}__eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--accent-color);
+  }
+
+  .scentech-reason-{{ section.id }}__title {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .scentech-reason-{{ section.id }}__desc {
+    font-size: 16px;
+    color: var(--subtext-color);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .scentech-reason-{{ section.id }}__checklist {
+    list-style: none;
+    margin-bottom: 32px;
+    padding: 0;
+  }
+
+  .scentech-reason-{{ section.id }}__checklist li {
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    color: var(--text-color);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .scentech-reason-{{ section.id }}__checklist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: -2px;
+    width: 22px;
+    height: 22px;
+    background: var(--accent-color);
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .scentech-reason-{{ section.id }}__review {
+    background: #FFFFFF;
+    padding: 24px;
+    border-radius: {{ section.settings.corner_radius }}px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+
+  .scentech-reason-{{ section.id }}__review-stars {
+    color: var(--accent-color);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .scentech-reason-{{ section.id }}__review-text {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .scentech-reason-{{ section.id }}__review-author {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--subtext-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 860px) {
+    .scentech-reason-{{ section.id }} {
+      padding: 60px 24px;
+    }
+    .scentech-reason-{{ section.id }}__container {
+      grid-template-columns: 1fr;
+      gap: 56px;
+    }
+    .scentech-reason-{{ section.id }}__image-col {
+      order: -1 !important; /* Image always on top for mobile */
+    }
+    .scentech-reason-{{ section.id }}__image-badge {
+      bottom: -20px;
+      right: 16px;
+      left: auto;
+    }
+  }
+</style>
+
+<div class="scentech-reason-{{ section.id }}">
+  <div class="scentech-reason-{{ section.id }}__container">
+    
+    <div class="scentech-reason-{{ section.id }}__text-col">
+      {% if section.settings.eyebrow != blank %}
+        <span class="scentech-reason-{{ section.id }}__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+      
+      <h2 class="scentech-reason-{{ section.id }}__title">{{ section.settings.title }}</h2>
+      
+      <div class="scentech-reason-{{ section.id }}__desc">
+        {{ section.settings.text }}
+      </div>
+      
+      <ul class="scentech-reason-{{ section.id }}__checklist">
+        {% if section.settings.check_1 != blank %}<li>{{ section.settings.check_1 }}</li>{% endif %}
+        {% if section.settings.check_2 != blank %}<li>{{ section.settings.check_2 }}</li>{% endif %}
+        {% if section.settings.check_3 != blank %}<li>{{ section.settings.check_3 }}</li>{% endif %}
+      </ul>
+      
+      {% if section.settings.show_review %}
+      <div class="scentech-reason-{{ section.id }}__review">
+        <div class="scentech-reason-{{ section.id }}__review-stars">★★★★★</div>
+        <div class="scentech-reason-{{ section.id }}__review-text">
+          "{{ section.settings.review_text }}"
+        </div>
+        <div class="scentech-reason-{{ section.id }}__review-author">{{ section.settings.review_author }}</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="scentech-reason-{{ section.id }}__image-col">
+      <div class="scentech-reason-{{ section.id }}__image">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+      
+      {% if section.settings.show_badge %}
+      <div class="scentech-reason-{{ section.id }}__image-badge">
+        <div class="scentech-reason-{{ section.id }}__image-badge-icon">{{ section.settings.badge_emoji }}</div>
+        <div class="scentech-reason-{{ section.id }}__image-badge-text">
+          {{ section.settings.badge_text | newline_to_br }}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reason Block (Scentech)",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position (Desktop)",
+      "options": [
+        { "value": "left", "label": "Image Left" },
+        { "value": "right", "label": "Image Right" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "header",
+      "content": "Text Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Reden 01"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Geen water. Geen verdamping. Gewoon geur."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Zoals ik al zei, de meeste diffusers werken met water. Ze verdunnen de geur, pompen damp de lucht in en noemen dat aromatherapie. Het resultaat? Een wolk witte mist die neerploft op je vloer.</p>"
+    },
+    {
+      "type": "header",
+      "content": "CRO Checklist"
+    },
+    {
+      "type": "text",
+      "id": "check_1",
+      "label": "Checklist Item 1",
+      "default": "100% pure geurolie (zonder waterverdunning)"
+    },
+    {
+      "type": "text",
+      "id": "check_2",
+      "label": "Checklist Item 2",
+      "default": "Geurmoleculen blijven urenlang zweven"
+    },
+    {
+      "type": "text",
+      "id": "check_3",
+      "label": "Checklist Item 3",
+      "default": "Veilig voor houten meubels (geen vocht)"
+    },
+    {
+      "type": "header",
+      "content": "CRO Inline Testimonial"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review",
+      "label": "Show Testimonial Box",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "review_text",
+      "label": "Review Text",
+      "default": "Eindelijk iets waardoor je huis goed ruikt. Geurstokjes kon ik alleen ruiken als ik er vlak boven hing. Scentech vult echt mijn hele woonkamer."
+    },
+    {
+      "type": "text",
+      "id": "review_author",
+      "label": "Review Author",
+      "default": "Nadia, geverifieerde koper"
+    },
+    {
+      "type": "header",
+      "content": "Image & Floating Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Floating Badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_emoji",
+      "label": "Badge Emoji/Icon",
+      "default": "✨"
+    },
+    {
+      "type": "textarea",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Zelfde technologie\nals een 5-sterren hotel"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Image & Box Corner Radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FAF7F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading & Dark Text Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Body Text Color",
+      "default": "#4A4A4A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Checks, Lines, Stars)",
+      "default": "#C9A96E"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "playfair_display_n7"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body Font",
+      "default": "inter_n4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reason Block (Scentech)"
+    }
+  ]
+}
+{% endschema %}
