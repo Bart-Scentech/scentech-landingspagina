@@ -67,9 +67,10 @@
   @media (max-width: 860px) {
     .scentech-sticky-cta-{{ section.id }} {
       bottom: 0; left: 0; right: 0; width: auto; margin: 0;
-      background: #F4F8F4; padding: 16px; flex-direction: column;
+      background: var(--bg-color); padding: 12px 16px 16px; flex-direction: column;
       align-items: center; justify-content: center; gap: 8px;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.1); border-top: 1px solid var(--border-color);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.1); border-top: 1px solid rgba(0,0,0,0.05);
+      transform: translateY(150%);
     }
     
     .scentech-sticky-cta-{{ section.id }}__product {
@@ -91,10 +92,10 @@
     }
     
     .scentech-sticky-cta-{{ section.id }}__btn {
-      width: 100%; text-align: center; padding: 14px 24px; font-size: 15px; border-radius: 8px; background: #1C7430; color: #fff; box-shadow: none;
+      width: 100%; text-align: center; padding: 16px 24px; font-size: 16px; border-radius: 50px; background: var(--btn-bg); color: var(--btn-text); box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
     .scentech-sticky-cta-{{ section.id }}__trust {
-      font-size: 12px; font-weight: 600; color: var(--text-color); text-align: center;
+      font-size: 12px; font-weight: 500; color: var(--subtext-color); text-align: center;
     }
   }
 </style>
@@ -129,14 +130,17 @@
     
     if(!stickyCta) return;
     
+    const banner = document.querySelector(".announcement-banner");
     window.addEventListener("scroll", function() {
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPosition = window.scrollY;
       
       if (scrollHeight > 0 && scrollPosition > (scrollHeight * triggerPercent)) {
         stickyCta.classList.add("is-visible");
+        if (banner) banner.classList.add("is-hidden");
       } else {
         stickyCta.classList.remove("is-visible");
+        if (banner) banner.classList.remove("is-hidden");
       }
     });
   });

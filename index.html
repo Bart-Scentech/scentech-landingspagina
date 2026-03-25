@@ -29,12 +29,12 @@
     }
 
     /* ─── ANNOUNCEMENT BANNER ─── */
-    @media (max-width: 860px) {
-      .announcement-banner { display: none !important; }
-      body > .hero { margin-top: 0 !important; }
-    }
     .announcement-banner {
       position: fixed;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .announcement-banner.is-hidden {
+      transform: translateY(-100%);
       top: 0;
       left: 0;
       right: 0;
@@ -809,7 +809,7 @@
       
       .sticky-cta {
         bottom: 0; right: 0; left: 0; width: auto; margin: 0;
-        background: #F4F8F4; padding: 16px; flex-direction: column;
+        background: var(--white); padding: 12px 16px 16px; flex-direction: column;
         align-items: center; justify-content: center; gap: 8px;
         box-shadow: 0 -10px 30px rgba(0,0,0,0.1); border-top: 1px solid var(--border);
       }
@@ -829,10 +829,10 @@
       }
       
       .sticky-cta__btn {
-        width: 100%; text-align: center; padding: 14px 24px; font-size: 15px; border-radius: 8px; background: #1C7430; color: #fff; box-shadow: none;
+        width: 100%; text-align: center; padding: 16px 24px; font-size: 16px; border-radius: 50px; background: var(--dark); color: var(--white); box-shadow: 0 4px 15px rgba(0,0,0,0.15);
       }
       .sticky-cta__trust {
-        font-size: 12px; font-weight: 600; color: var(--dark); text-align: center;
+        font-size: 12px; font-weight: 500; color: var(--subtle); text-align: center; display: block !important;
       }
     }
   </style>
@@ -1010,15 +1010,17 @@
     document.addEventListener("DOMContentLoaded", function() {
       const stickyCta = document.getElementById("stickyCta");
       
+      const banner = document.querySelector(".announcement-banner");
       window.addEventListener("scroll", function() {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPosition = window.scrollY;
         
-        // Laat zien als we voorbij 33% van de pagina zijn
         if (scrollHeight > 0 && scrollPosition > (scrollHeight * 0.33)) {
           stickyCta.classList.add("is-visible");
+          if (banner) banner.classList.add("is-hidden");
         } else {
           stickyCta.classList.remove("is-visible");
+          if (banner) banner.classList.remove("is-hidden");
         }
       });
     });
