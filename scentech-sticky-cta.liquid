@@ -1,0 +1,310 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.text_color
+  assign subtext_color = section.settings.subtext_color
+  assign btn_bg = section.settings.btn_bg
+  assign btn_text = section.settings.btn_text
+  
+  assign heading_font = section.settings.heading_font
+  assign body_font = section.settings.body_font
+-%}
+
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+
+  .scentech-sticky-cta-{{ section.id }} {
+    --bg-color: {{ bg_color }};
+    --text-color: {{ text_color }};
+    --subtext-color: {{ subtext_color }};
+    --btn-bg: {{ btn_bg }};
+    --btn-text: {{ btn_text }};
+    
+    --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-color);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: var(--font-body);
+  }
+
+  .scentech-sticky-cta-{{ section.id }}.is-visible {
+    transform: translateY(0);
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__product {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__image {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 2px;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__subtitle {
+    font-size: 12px;
+    color: var(--subtext-color);
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__price-box {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__price {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: right;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__price span {
+    display: block;
+    font-size: 12px;
+    color: var(--subtext-color);
+    font-weight: 400;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__btn {
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    padding: 14px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: {{ section.settings.btn_radius }}px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .scentech-sticky-cta-{{ section.id }}__btn:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 860px) {
+    .scentech-sticky-cta-{{ section.id }} {
+      padding: 12px 16px;
+    }
+    
+    .scentech-sticky-cta-{{ section.id }}__image,
+    .scentech-sticky-cta-{{ section.id }}__subtitle,
+    .scentech-sticky-cta-{{ section.id }}__price {
+      display: none;
+    }
+    
+    .scentech-sticky-cta-{{ section.id }}__title {
+      font-size: 15px;
+    }
+    
+    .scentech-sticky-cta-{{ section.id }}__btn {
+      padding: 12px 24px;
+    }
+  }
+</style>
+
+<div class="scentech-sticky-cta-{{ section.id }}" id="stickyCta-{{ section.id }}">
+  <div class="scentech-sticky-cta-{{ section.id }}__product">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 100 | image_tag: loading: 'lazy', class: 'scentech-sticky-cta-' | append: section.id | append: '__image' }}
+    {% else %}
+      <img src="{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}" class="scentech-sticky-cta-{{ section.id }}__image">
+    {% endif %}
+    
+    <div class="scentech-sticky-cta-{{ section.id }}__text">
+      <span class="scentech-sticky-cta-{{ section.id }}__title">{{ section.settings.title }}</span>
+      <span class="scentech-sticky-cta-{{ section.id }}__subtitle">{{ section.settings.subtitle }}</span>
+    </div>
+  </div>
+  
+  <div class="scentech-sticky-cta-{{ section.id }}__price-box">
+    <div class="scentech-sticky-cta-{{ section.id }}__price">
+      {{ section.settings.price_top }}
+      <span>{{ section.settings.price_bottom }}</span>
+    </div>
+    <a href="{{ section.settings.btn_link }}" class="scentech-sticky-cta-{{ section.id }}__btn">{{ section.settings.btn_text }}</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const stickyCta = document.getElementById("stickyCta-{{ section.id }}");
+    const triggerPercent = {{ section.settings.trigger_percentage }} / 100;
+    
+    if(!stickyCta) return;
+    
+    window.addEventListener("scroll", function() {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPosition = window.scrollY;
+      
+      if (scrollHeight > 0 && scrollPosition > (scrollHeight * triggerPercent)) {
+        stickyCta.classList.add("is-visible");
+      } else {
+        stickyCta.classList.remove("is-visible");
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Sticky CTA Bar (Scentech)",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "range",
+      "id": "trigger_percentage",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Scroll percentage to show bar",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product Thumbnail"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Product Title",
+      "default": "Smart Aroma Diffuser 2"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Nu tijdelijk gratis v.a. 7 geuren"
+    },
+    {
+      "type": "text",
+      "id": "price_top",
+      "label": "Price Top Text",
+      "default": "Nu gratis"
+    },
+    {
+      "type": "text",
+      "id": "price_bottom",
+      "label": "Price Bottom Text",
+      "default": "bij aankoop van geuren"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Koop Nu"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Corner Radius",
+      "default": 6
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Bar Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Main Text Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#8A8A8A"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "playfair_display_n7"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body Font",
+      "default": "inter_n4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky CTA Bar (Scentech)"
+    }
+  ]
+}
+{% endschema %}
