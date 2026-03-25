@@ -67,12 +67,14 @@
     }
 
     .hero__text {
-      padding: 72px 56px 72px 72px;
+      padding: clamp(30px, 6vh, 72px) clamp(24px, 5vw, 56px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       text-align: center;
       align-items: center;
+      max-width: 650px;
+      margin: 0 auto;
     }
 
     .hero__eyebrow {
@@ -98,11 +100,11 @@
 
     .hero__headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 3.5vw, 50px);
+      font-size: clamp(28px, 3.5vw, 46px);
       font-weight: 700;
       line-height: 1.15;
       color: var(--dark);
-      margin-bottom: 20px;
+      margin-bottom: clamp(12px, 2.5vh, 20px);
     }
 
     .hero__headline em {
@@ -119,10 +121,10 @@
     }
 
     .hero__problem {
-      font-size: 15px;
+      font-size: clamp(13px, 1.2vw, 15px);
       color: var(--subtle);
-      margin-bottom: 36px;
-      line-height: 1.8;
+      margin-bottom: clamp(20px, 4vh, 36px);
+      line-height: 1.7;
     }
 
     .hero__problem strong {
@@ -312,7 +314,7 @@
 
     <div class="hero__text">
 
-      <span class="hero__eyebrow">Smart Aroma Diffuser 2</span>
+      <span class="hero__eyebrow">Luxe Hotelgeuren</span>
 
       <h1 class="hero__headline">
         5 redenen waarom deze diffuser je huis laat ruiken als een <em>luxe hotel</em>

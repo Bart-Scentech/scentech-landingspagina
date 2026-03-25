@@ -1,0 +1,576 @@
+{%- liquid
+  assign bg_color = section.settings.bg_color
+  assign text_color = section.settings.text_color
+  assign accent_color = section.settings.accent_color
+  assign button_primary_bg = section.settings.button_primary_bg
+  assign button_primary_text = section.settings.button_primary_text
+  assign button_radius = section.settings.button_radius
+  assign announcement_bg = section.settings.announcement_bg
+  assign announcement_text = section.settings.announcement_text
+  
+  assign heading_font = section.settings.heading_font
+  assign body_font = section.settings.body_font
+-%}
+
+<style>
+  {{ heading_font | font_face: font_display: 'swap' }}
+  {{ body_font | font_face: font_display: 'swap' }}
+
+  .scentech-blog-hero-{{ section.id }} {
+    --bg-color: {{ bg_color }};
+    --text-color: {{ text_color }};
+    --accent-color: {{ accent_color }};
+    --subtext-color: {{ text_color | color_modify: 'alpha', 0.7 }};
+    --border-color: {{ text_color | color_modify: 'alpha', 0.15 }};
+    
+    --btn-primary-bg: {{ button_primary_bg }};
+    --btn-primary-text: {{ button_primary_text }};
+    --btn-radius: {{ button_radius }}px;
+
+    --announcement-bg: {{ announcement_bg }};
+    --announcement-text: {{ announcement_text }};
+    
+    --font-heading: {{ heading_font.family }}, {{ heading_font.fallback_families }};
+    --font-body: {{ body_font.family }}, {{ body_font.fallback_families }};
+    
+    --banner-h: {% if section.settings.show_announcement %}44px{% else %}0px{% endif %};
+
+    box-sizing: border-box;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow: hidden;
+  }
+
+  .scentech-blog-hero-{{ section.id }} *, .scentech-blog-hero-{{ section.id }} *::before, .scentech-blog-hero-{{ section.id }} *::after {
+    box-sizing: inherit;
+  }
+
+  /* ─── ANNOUNCEMENT BANNER ─── */
+  .scentech-blog-hero-{{ section.id }} .announcement-banner {
+    {% if section.settings.show_announcement %}
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--banner-h);
+    background: var(--announcement-bg);
+    color: var(--announcement-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    {% else %}
+    display: none;
+    {% endif %}
+  }
+
+  /* ─── HERO ─── */
+  .scentech-blog-hero-{{ section.id }} .hero {
+    /* Responsive height to prevent content from pushing out of 100vh */
+    min-height: calc(100vh - var(--banner-h));
+    {% if section.settings.show_announcement %}
+    margin-top: var(--banner-h);
+    {% endif %}
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    background: var(--bg-color);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__text {
+    /* Clamp padding so it shrinks vertically on shorter screens */
+    padding: clamp(30px, 6vh, 72px) clamp(24px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: clamp(12px, 3vh, 24px);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent-color);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__headline {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-color);
+    margin-bottom: clamp(12px, 2.5vh, 20px);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__headline em {
+    font-style: italic;
+    color: var(--accent-color);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__subhead {
+    font-size: clamp(14px, 1.5vw, 16px);
+    font-weight: 400;
+    color: var(--subtext-color);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__problem {
+    font-size: clamp(13px, 1.2vw, 15px);
+    color: var(--subtext-color);
+    margin-bottom: clamp(20px, 4vh, 36px);
+    line-height: 1.7;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__problem strong {
+    color: var(--text-color);
+    font-weight: 600;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__cta-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: clamp(20px, 4vh, 36px);
+    width: 100%;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .btn-primary,
+  .scentech-blog-hero-{{ section.id }} .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 14px 24px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+    border-radius: var(--btn-radius);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .btn-primary {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border: 1px solid var(--btn-primary-bg);
+  }
+  .scentech-blog-hero-{{ section.id }} .btn-primary:hover { opacity: 0.9; }
+
+  .scentech-blog-hero-{{ section.id }} .btn-secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+  }
+  .scentech-blog-hero-{{ section.id }} .btn-secondary:hover { border-color: var(--text-color); }
+
+  .scentech-blog-hero-{{ section.id }} .hero__social-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding-top: clamp(16px, 3vh, 28px);
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .stars {
+    color: var(--accent-color);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__social-proof-text {
+    font-size: 13px;
+    color: var(--subtext-color);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__social-proof-text strong {
+    color: var(--text-color);
+    font-weight: 600;
+  }
+
+  /* ─── HERO IMAGE ─── */
+  .scentech-blog-hero-{{ section.id }} .hero__image {
+    position: relative;
+    min-height: calc(100vh - var(--banner-h));
+    background: var(--bg-color);
+    overflow: hidden;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__image-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: calc(100vh - var(--banner-h));
+    background: linear-gradient(160deg, #F5EFE8 0%, #EAE0D4 40%, #DDD0BC 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__badge {
+    position: absolute;
+    bottom: 36px;
+    left: 28px;
+    background: var(--bg-color);
+    padding: 16px 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    max-width: 230px;
+    border-radius: var(--btn-radius);
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__badge-quote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-color);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .scentech-blog-hero-{{ section.id }} .hero__badge-author {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--subtext-color);
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 860px) {
+    .scentech-blog-hero-{{ section.id }} .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .scentech-blog-hero-{{ section.id }} .hero__image {
+      min-height: 55vw;
+      max-height: 420px;
+      order: -1;
+    }
+
+    .scentech-blog-hero-{{ section.id }} .hero__image-placeholder {
+      min-height: 55vw;
+    }
+
+    .scentech-blog-hero-{{ section.id }} .hero__text {
+      padding: 48px 24px 56px;
+    }
+
+    .scentech-blog-hero-{{ section.id }} .btn-primary,
+    .scentech-blog-hero-{{ section.id }} .btn-secondary {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="scentech-blog-hero-{{ section.id }}">
+  
+  {% if section.settings.show_announcement %}
+  <div class="announcement-banner">
+    {{ section.settings.announcement_html }}
+  </div>
+  {% endif %}
+
+  <section class="hero">
+    <div class="hero__text">
+      
+      {% if section.settings.eyebrow != blank %}
+      <span class="hero__eyebrow">{{ section.settings.eyebrow }}</span>
+      {% endif %}
+
+      <h1 class="hero__headline">
+        {{ section.settings.headline }}
+      </h1>
+
+      {% if section.settings.subhead != blank %}
+      <p class="hero__subhead">
+        {{ section.settings.subhead }}
+      </p>
+      {% endif %}
+
+      {% if section.settings.problem_text != blank %}
+      <div class="hero__problem">
+        {{ section.settings.problem_text }}
+      </div>
+      {% endif %}
+
+      <div class="hero__cta-group">
+        {% if section.settings.btn_1_text != blank %}
+        <a href="{{ section.settings.btn_1_link }}" class="btn-primary">{{ section.settings.btn_1_text }}</a>
+        {% endif %}
+        {% if section.settings.btn_2_text != blank %}
+        <a href="{{ section.settings.btn_2_link }}" class="btn-secondary">{{ section.settings.btn_2_text }}</a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.show_social_proof %}
+      <div class="hero__social-proof">
+        <span class="stars">{{ section.settings.stars }}</span>
+        <p class="hero__social-proof-text">
+          {{ section.settings.social_proof_text }}
+        </p>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="hero__image">
+      {% if section.settings.image != blank %}
+        {{ section.settings.image | image_url: width: 1500 | image_tag: loading: 'lazy' }}
+      {% else %}
+        <div class="hero__image-placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.show_badge %}
+      <div class="hero__badge">
+        <p class="hero__badge-quote">{{ section.settings.badge_quote }}</p>
+        <p class="hero__badge-author">{{ section.settings.badge_author }}</p>
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Blog Hero (Scentech)",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Announcement Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement banner",
+      "default": true
+    },
+    {
+      "type": "html",
+      "id": "announcement_html",
+      "label": "Banner HTML",
+      "default": "🎁 <span style=\"color: var(--accent-color); font-weight: 600;\">Gratis diffuser</span>&nbsp;vanaf 5 geuren — Tijdelijk aanbod"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg",
+      "label": "Banner Background",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text",
+      "label": "Banner Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Luxe Hotelgeuren",
+      "info": "Bv. 'Smart Aroma Diffuser 2' of 'Blog'"
+    },
+    {
+      "type": "html",
+      "id": "headline",
+      "label": "Headline",
+      "default": "5 redenen waarom deze diffuser je huis laat ruiken als een <em>luxe hotel</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "subhead",
+      "label": "Subhead",
+      "default": "Voelt het bij jou ook alsof je echt alles al hebt geprobeerd?"
+    },
+    {
+      "type": "html",
+      "id": "problem_text",
+      "label": "Text / Problem",
+      "default": "Geurstokjes. Kaarsen. Een waterdiffuser met witte rook.<br>En toch — een week later ruik je niks meer.<br><br><strong>Je wilt gewoon één ding:</strong> dat gevoel van een luxe hotel. Warm. Uitnodigend. Elke dag als je thuiskomt."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "btn_1_text",
+      "label": "Button 1 Text",
+      "default": "Bekijk de Diffuser 2 →"
+    },
+    {
+      "type": "url",
+      "id": "btn_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn_2_text",
+      "label": "Button 2 Text",
+      "default": "Ontdek waarom ↓"
+    },
+    {
+      "type": "url",
+      "id": "btn_2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Corner Radius (Buttons & Badges)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_proof",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stars",
+      "label": "Stars",
+      "default": "★★★★★"
+    },
+    {
+      "type": "html",
+      "id": "social_proof_text",
+      "label": "Rating Text",
+      "default": "<strong>4.7/5</strong> — meer dan 70 tevreden klanten"
+    },
+    {
+      "type": "header",
+      "content": "Image & Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badge",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "badge_quote",
+      "label": "Badge Quote",
+      "default": "\"Net of je in een deluxe hotel bent. Zalig thuiskomen.\""
+    },
+    {
+      "type": "text",
+      "id": "badge_author",
+      "label": "Badge Author",
+      "default": "— Steven, klant ★★★★★"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FAF7F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#C9A96E"
+    },
+    {
+      "type": "color",
+      "id": "button_primary_bg",
+      "label": "Primary Button Background",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "button_primary_text",
+      "label": "Primary Button Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading Font",
+      "default": "playfair_display_n7"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body Font",
+      "default": "inter_n4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Hero (Scentech)"
+    }
+  ]
+}
+{% endschema %}
