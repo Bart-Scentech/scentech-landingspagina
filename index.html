@@ -498,6 +498,110 @@
       letter-spacing: 0.05em;
     }
 
+    /* ─── PROMO BLOCK (INTERRUPTION) ─── */
+    .promo-block {
+      background: var(--dark);
+      padding: clamp(60px, 8vw, 100px) 24px;
+      display: flex;
+      justify-content: center;
+      color: var(--white);
+    }
+
+    .promo-block__container {
+      max-width: 1000px;
+      width: 100%;
+      background: #252525;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    }
+
+    .promo-block__image {
+      position: relative;
+    }
+
+    .promo-block__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      min-height: 400px;
+    }
+
+    .promo-block__content {
+      padding: clamp(40px, 6vw, 60px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .promo-block__eyebrow {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .promo-block__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .promo-block__offer {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 32px;
+      color: #D1D1D1;
+    }
+
+    .promo-block__offer span {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 22px;
+    }
+
+    .promo-block__usps {
+      list-style: none;
+      margin-bottom: 36px;
+      padding: 0;
+    }
+
+    .promo-block__usps li {
+      margin-bottom: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #E8E2DB;
+    }
+
+    .promo-block__usps li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    .promo-block__btn {
+      background: var(--gold);
+      color: var(--dark);
+      border: 1px solid var(--gold);
+      font-size: 15px;
+      width: fit-content;
+      border-radius: 4px;
+    }
+
+    .promo-block__btn:hover {
+      background: #b5955a;
+      border-color: #b5955a;
+    }
+
     /* ─── MOBILE ─── */
     @media (max-width: 860px) {
       .hero {
@@ -553,6 +657,23 @@
       .reason__image-badge {
         bottom: -20px;
         right: 16px;
+      }
+      
+      .promo-block {
+        padding: 60px 24px;
+      }
+      
+      .promo-block__container {
+        grid-template-columns: 1fr;
+      }
+      
+      .promo-block__image img {
+        min-height: 300px;
+      }
+      
+      .promo-block__btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -681,6 +802,34 @@
             Zelfde technologie<br>als een 5-sterren hotel
           </div>
         </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ═══════ PROMO BLOCK (INTERRUPTION) ═══════ -->
+  <section class="promo-block">
+    <div class="promo-block__container">
+      
+      <!-- Linker Kolom: Product Image -->
+      <div class="promo-block__image">
+        <img src="https://images.unsplash.com/photo-1596433809252-260c27459635?w=600&q=80" alt="Smart Aroma Diffuser 2" />
+      </div>
+      
+      <!-- Rechter Kolom: Content & Offer -->
+      <div class="promo-block__content">
+        <div class="promo-block__eyebrow">Exclusief Aanbod</div>
+        <h2 class="promo-block__title">Smart Aroma Diffuser 2</h2>
+        
+        <div class="promo-block__offer">Nu <span>Gratis</span> vanaf 7 geuren</div>
+        
+        <ul class="promo-block__usps">
+          <li>30 dagen lang zonder omkijken</li>
+          <li>Bereik tot maar liefst 65m²</li>
+          <li>Uniek antilek systeem (veilig voor meubels)</li>
+        </ul>
+        
+        <a href="#" class="btn-primary promo-block__btn">Claim jouw gratis diffuser</a>
       </div>
       
     </div>
