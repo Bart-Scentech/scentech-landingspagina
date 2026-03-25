@@ -29,6 +29,10 @@
     }
 
     /* ─── ANNOUNCEMENT BANNER ─── */
+    @media (max-width: 860px) {
+      .announcement-banner { display: none !important; }
+      body > .hero { margin-top: 0 !important; }
+    }
     .announcement-banner {
       position: fixed;
       top: 0;
@@ -59,7 +63,7 @@
 
     /* ─── HERO ─── */
     .hero {
-      min-height: calc(100vh - var(--banner-h));
+      
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
@@ -202,7 +206,7 @@
     /* ─── HERO IMAGE ─── */
     .hero__image {
       position: relative;
-      min-height: calc(100vh - var(--banner-h));
+      
       background: var(--cream);
       overflow: hidden;
     }
@@ -218,7 +222,7 @@
     .hero__image-placeholder {
       width: 100%;
       height: 100%;
-      min-height: calc(100vh - var(--banner-h));
+      
       background: linear-gradient(160deg, #F5EFE8 0%, #EAE0D4 40%, #DDD0BC 100%);
       display: flex;
       flex-direction: column;
@@ -279,8 +283,21 @@
     }
 
     .hotel-secret__container {
-      max-width: 680px;
+      max-width: 1080px;
       width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .hotel-secret__container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .hotel-secret__image {
+        order: -1;
+      }
     }
 
     .hotel-secret__title {
@@ -360,10 +377,10 @@
     /* CRO Element: floating badge on image */
     .reason__image-badge {
       position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--white);
-      padding: 16px;
+      bottom: 24px;
+      left: 24px;
+      background: #FFFFFF;
+      padding: 12px 16px;
       border-radius: 8px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       display: flex;
@@ -373,15 +390,15 @@
     }
 
     .reason__image-badge-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--gold);
-      color: var(--white);
+      width: 32px;
+      height: 32px;
+      background: #D5B47B;
+      color: #FFFFFF;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 16px;
     }
 
     .reason__image-badge-text {
@@ -507,6 +524,8 @@
     }
 
     .promo-block__container {
+      position: relative;
+      margin-top: 24px;
       max-width: 900px;
       width: 100%;
       background: #F4EFEB; /* Matching the screenshot's card vibe */
@@ -604,7 +623,23 @@
       background: #D5C8BB;
     }
 
+    .promo-block__label {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #9B59B6;
+      color: #FFF;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
     /* ─── STICKY CTA (DESKTOP: FLOATING BUTTON) ─── */
+    .sticky-cta__trust { display: none; }
     .sticky-cta {
       position: fixed;
       bottom: 32px;
@@ -651,13 +686,13 @@
       }
 
       .hero__image {
-        min-height: 55vw;
+        
         max-height: 420px;
         order: -1;
       }
 
       .hero__image-placeholder {
-        min-height: 55vw;
+        
       }
 
       .hero__text {
@@ -694,11 +729,13 @@
       .reason__image-col {
         order: -1;
       }
-      
-      .reason__image-badge {
-        bottom: -20px;
-        right: 16px;
+      .reason__image img, .hotel-secret__image img, .promo-block__image img {
+        aspect-ratio: auto !important;
+        height: auto !important;
+        width: 100% !important;
       }
+      
+      /* mobile pos static left */
       
       .promo-block {
         padding: 32px 16px;
@@ -715,7 +752,7 @@
       }
       
       .promo-block__image img {
-        aspect-ratio: 4/3; /* Slightly shorter than square on mobile */
+        aspect-ratio: auto !important; height: auto !important; width: 100% !important;
       }
       
       .promo-block__content {
@@ -758,17 +795,10 @@
       }
       
       .sticky-cta {
-        bottom: 0;
-        right: 0;
-        left: 0;
-        width: auto;
-        margin: 0;
-        background: var(--white);
-        padding: 12px 16px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+        bottom: 0; right: 0; left: 0; width: auto; margin: 0;
+        background: #F4F8F4; padding: 16px; flex-direction: column;
+        align-items: center; justify-content: center; gap: 8px;
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.1); border-top: 1px solid var(--border);
       }
       
       .sticky-cta__product {
@@ -786,10 +816,10 @@
       }
       
       .sticky-cta__btn {
-        padding: 12px 24px;
-        font-size: 14px;
-        border-radius: 6px;
-        box-shadow: none;
+        width: 100%; text-align: center; padding: 14px 24px; font-size: 15px; border-radius: 8px; background: #1C7430; color: #fff; box-shadow: none;
+      }
+      .sticky-cta__trust {
+        font-size: 12px; font-weight: 600; color: var(--dark); text-align: center;
       }
     }
   </style>
@@ -798,7 +828,7 @@
 
   <!-- ═══════ ANNOUNCEMENT BANNER ═══════ -->
   <div class="announcement-banner">
-    🎁 <span>Gratis diffuser</span>&nbsp;vanaf 5 geuren — Tijdelijk aanbod
+    🎁 <span>Gratis diffuser</span>&nbsp;vanaf 5 geuren &nbsp; | &nbsp; ⭐⭐⭐⭐⭐ 4.8 stars • 85K+ reviews
   </div>
 
   <!-- ═══════ HERO ═══════ -->
@@ -857,19 +887,20 @@
   <!-- ═══════ HET GEHEIM VAN HET HOTEL ═══════ -->
   <section class="hotel-secret" id="redenen">
     <div class="hotel-secret__container">
-      <h2 class="hotel-secret__title">Waarom ruiken luxe hotels altijd perfect?</h2>
-      
-      <div class="hotel-secret__content">
-        <p>Dat komt niet door geurstokjes.</p>
-        
-        <p>Achter de schermen gebruiken ze professionele geurapparaten. Maar die geurapparaten zijn anders dan wat jij thuis waarschijnlijk kent. Thuis verdun je je olie vaak met water, wat vervolgens als een vochtige mist wordt verspreid.</p>
-        
-        <div class="hotel-secret__highlight">
-          <h3>Het geheim: Cold Air Diffusion</h3>
-          <p>In hotels maken ze gebruik van <strong>Cold Air Diffusion</strong>. Een technologie waarbij de pure olie onder hoge druk wordt verneveld tot onzichtbare microdeeltjes die zich verspreiden via de luchtstroom. Zonder water of hitte, en zonder neer te slaan op je meubels.</p>
+      <div class="hotel-secret__text-col">
+        <h2 class="hotel-secret__title" style="text-align: left;">Waarom ruiken luxe hotels altijd perfect?</h2>
+        <div class="hotel-secret__content">
+          <p>Dat komt niet door geurstokjes.</p>
+          <p>Achter de schermen gebruiken ze professionele geurapparaten. Maar die geurapparaten zijn anders dan wat jij thuis waarschijnlijk kent. Thuis verdun je je olie vaak met water, wat vervolgens als een vochtige mist wordt verspreid.</p>
+          <div class="hotel-secret__highlight">
+            <h3>Het geheim: Cold Air Diffusion</h3>
+            <p>In hotels maken ze gebruik van <strong>Cold Air Diffusion</strong>. Een technologie waarbij de pure olie onder hoge druk wordt verneveld tot onzichtbare microdeeltjes die zich verspreiden via de luchtstroom. Zonder water of hitte, en zonder neer te slaan op je meubels.</p>
+          </div>
+          <p>En precies deze hotel-technologie hebben wij nu, in een compact en stijlvol design, beschikbaar gemaakt voor consumenten.</p>
         </div>
-        
-        <p>En precies deze hotel-technologie hebben wij nu, in een compact en stijlvol design, beschikbaar gemaakt voor consumenten.</p>
+      </div>
+      <div class="hotel-secret__image">
+        <img src="https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=800&q=80" alt="Luxe hotel" />
       </div>
     </div>
   </section>
@@ -926,6 +957,7 @@
   <!-- ═══════ PROMO BLOCK (HORIZONTAL CARD) ═══════ -->
   <section class="promo-block">
     <div class="promo-block__container">
+      <div class="promo-block__label">SPRING SALE</div>
       
       <!-- Linker Kolom: Product Image -->
       <div class="promo-block__image">
@@ -956,20 +988,8 @@
 
   <!-- ═══════ STICKY CTA BAR ═══════ -->
   <div class="sticky-cta" id="stickyCta">
-    <div class="sticky-cta__product">
-      <img src="https://images.unsplash.com/photo-1596433809252-260c27459635?w=100&h=100&fit=crop&q=80" alt="Diffuser thumbnail" class="sticky-cta__image">
-      <div class="sticky-cta__text">
-        <span class="sticky-cta__title">Smart Aroma Diffuser 2</span>
-        <span class="sticky-cta__subtitle">Nu tijdelijk gratis v.a. 7 geuren</span>
-      </div>
-    </div>
-    <div class="sticky-cta__price-box">
-      <div class="sticky-cta__price">
-        Nu gratis
-        <span>bij aankoop van geuren</span>
-      </div>
-      <a href="#" class="sticky-cta__btn">Koop Nu</a>
-    </div>
+    <a href="#" class="sticky-cta__btn">Save 52% + Free Shipping</a>
+    <div class="sticky-cta__trust">⭐⭐⭐⭐⭐ 4.8 stars • 85K+ reviews • 1M+ members</div>
   </div>
 
   <!-- Javascript for scroll detection (33% height trigger) -->

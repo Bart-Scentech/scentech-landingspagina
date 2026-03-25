@@ -49,6 +49,7 @@
 
   /* ─── ANNOUNCEMENT BANNER ─── */
   .scentech-blog-hero-{{ section.id }} .announcement-banner {
+    @media (max-width: 860px) { display: none !important; }
     {% if section.settings.show_announcement %}
     position: fixed;
     top: 0;
@@ -73,7 +74,7 @@
   /* ─── HERO ─── */
   .scentech-blog-hero-{{ section.id }} .hero {
     /* Responsive height to prevent content from pushing out of 100vh */
-    min-height: calc(100vh - var(--banner-h));
+    
     {% if section.settings.show_announcement %}
     margin-top: var(--banner-h);
     {% endif %}
@@ -220,7 +221,7 @@
   /* ─── HERO IMAGE ─── */
   .scentech-blog-hero-{{ section.id }} .hero__image {
     position: relative;
-    min-height: calc(100vh - var(--banner-h));
+    
     background: var(--bg-color);
     overflow: hidden;
   }
@@ -235,7 +236,7 @@
   .scentech-blog-hero-{{ section.id }} .hero__image-placeholder {
     width: 100%;
     height: 100%;
-    min-height: calc(100vh - var(--banner-h));
+    
     background: linear-gradient(160deg, #F5EFE8 0%, #EAE0D4 40%, #DDD0BC 100%);
     display: flex;
     flex-direction: column;
@@ -279,13 +280,13 @@
     }
 
     .scentech-blog-hero-{{ section.id }} .hero__image {
-      min-height: 55vw;
+      
       max-height: 420px;
       order: -1;
     }
 
     .scentech-blog-hero-{{ section.id }} .hero__image-placeholder {
-      min-height: 55vw;
+      
     }
 
     .scentech-blog-hero-{{ section.id }} .hero__text {

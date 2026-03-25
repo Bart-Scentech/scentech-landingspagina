@@ -42,7 +42,24 @@
     box-sizing: border-box;
   }
 
+  .scentech-promo-hor-{{ section.id }}__label {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: {{ section.settings.label_bg }};
+    color: {{ section.settings.label_text_color }};
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
   .scentech-promo-hor-{{ section.id }}__container {
+    position: relative;
+    margin-top: 24px;
     max-width: 900px;
     width: 100%;
     background: var(--card-bg);
@@ -157,7 +174,22 @@
     .scentech-promo-hor-{{ section.id }} {
       padding: 32px 16px;
     }
-    .scentech-promo-hor-{{ section.id }}__container {
+    .scentech-promo-hor-{{ section.id }}__label {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: {{ section.settings.label_bg }};
+    color: {{ section.settings.label_text_color }};
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .scentech-promo-hor-{{ section.id }}__container {
       /* MOBILE STACKED */
       grid-template-columns: 1fr;
       padding: 16px;
@@ -174,7 +206,7 @@
     }
 
     .scentech-promo-hor-{{ section.id }}__image img, .scentech-promo-hor-{{ section.id }}__image svg {
-      aspect-ratio: 4/3; 
+      aspect-ratio: auto !important; height: auto !important; width: 100% !important; 
     }
     
     /* We have space now, so we can show the desktop-only text again */
@@ -216,6 +248,9 @@
 
 <div class="scentech-promo-hor-{{ section.id }}">
   <div class="scentech-promo-hor-{{ section.id }}__container">
+    {% if section.settings.show_label %}
+      <div class="scentech-promo-hor-{{ section.id }}__label">{{ section.settings.label_text }}</div>
+    {% endif %}
     
     <div class="scentech-promo-hor-{{ section.id }}__image">
       {% if section.settings.image != blank %}

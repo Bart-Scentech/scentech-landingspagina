@@ -78,12 +78,11 @@
 
   .scentech-reason-{{ section.id }}__image-badge {
     position: absolute;
-    bottom: -20px;
-    {% if section.settings.image_position == 'left' %}
-      right: -20px;
-    {% else %}
-      left: -20px;
-    {% endif %}
+    bottom: 24px;
+    left: 24px;
+    background: #FFFFFF;
+    padding: 12px 16px;
+    /* pos kept left */
     background: #FFFFFF;
     padding: 16px;
     border-radius: 8px;
@@ -95,7 +94,15 @@
   }
 
   .scentech-reason-{{ section.id }}__image-badge-icon {
-    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    background: #D5B47B;
+    color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
   }
 
   .scentech-reason-{{ section.id }}__image-badge-text {
@@ -222,11 +229,7 @@
     .scentech-reason-{{ section.id }}__image-col {
       order: -1 !important; /* Image always on top for mobile */
     }
-    .scentech-reason-{{ section.id }}__image-badge {
-      bottom: -20px;
-      right: 16px;
-      left: auto;
-    }
+    /* pos static left */
   }
 </style>
 

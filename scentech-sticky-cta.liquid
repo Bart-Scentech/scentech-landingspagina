@@ -66,17 +66,10 @@
 
   @media (max-width: 860px) {
     .scentech-sticky-cta-{{ section.id }} {
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: auto;
-      margin: 0;
-      background: var(--bg-color);
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+      bottom: 0; left: 0; right: 0; width: auto; margin: 0;
+      background: #F4F8F4; padding: 16px; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.1); border-top: 1px solid var(--border-color);
     }
     
     .scentech-sticky-cta-{{ section.id }}__product {
@@ -98,10 +91,10 @@
     }
     
     .scentech-sticky-cta-{{ section.id }}__btn {
-      padding: 12px 24px;
-      font-size: 14px;
-      border-radius: {{ section.settings.btn_radius }}px;
-      box-shadow: none;
+      width: 100%; text-align: center; padding: 14px 24px; font-size: 15px; border-radius: 8px; background: #1C7430; color: #fff; box-shadow: none;
+    }
+    .scentech-sticky-cta-{{ section.id }}__trust {
+      font-size: 12px; font-weight: 600; color: var(--text-color); text-align: center;
     }
   }
 </style>
