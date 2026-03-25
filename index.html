@@ -32,9 +32,6 @@
     .announcement-banner {
       position: fixed;
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .announcement-banner.is-hidden {
-      transform: translateY(-100%);
       top: 0;
       left: 0;
       right: 0;
@@ -49,6 +46,9 @@
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.04em;
+    }
+    .announcement-banner.is-hidden {
+      transform: translateY(-100%);
     }
 
     .announcement-banner span {
