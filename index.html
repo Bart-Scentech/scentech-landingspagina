@@ -778,7 +778,29 @@
       }
       
       .hotel-secret {
-        padding: 60px 24px;
+        padding: 60px 0;
+      }
+
+      .hotel-secret__container {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .hotel-secret__text-col {
+        padding: 40px 24px 0;
+      }
+
+      .hotel-secret__image {
+        border-radius: 0;
+        box-shadow: none;
+        order: -1;
+        width: 100%;
+      }
+
+      .hotel-secret__image img {
+        aspect-ratio: auto !important;
+        height: auto !important;
+        width: 100% !important;
       }
       
       .hotel-secret__highlight {
@@ -787,18 +809,35 @@
       }
       
       .reason {
-        padding: 60px 24px;
+        padding: 60px 0;
       }
       
       .reason__container {
         grid-template-columns: 1fr;
-        gap: 56px;
+        gap: 0;
+      }
+
+      .reason__text-col {
+        padding: 40px 24px;
       }
       
       .reason__image-col {
         order: -1;
+        width: 100%;
       }
-      .reason__image img, .hotel-secret__image img, .promo-block__image img {
+
+      .reason__image {
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .reason__image img {
+        aspect-ratio: auto !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+
+      .hotel-secret__image img, .promo-block__image img {
         aspect-ratio: auto !important;
         height: auto !important;
         width: 100% !important;
@@ -807,17 +846,21 @@
       /* mobile pos static left */
       
       .promo-block {
-        padding: 32px 16px;
+        padding: 32px 0;
       }
       
       .promo-block__container {
         grid-template-columns: 1fr;
-        padding: 16px;
-        gap: 24px;
+        padding: 0;
+        gap: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
       }
       
       .promo-block__image {
-        order: -1 !important; /* Image on top */
+        order: -1 !important;
+        border-radius: 0;
       }
       
       .promo-block__image img {
@@ -825,7 +868,7 @@
       }
       
       .promo-block__content {
-        padding: 0 4px 8px 4px;
+        padding: 24px 24px 8px 24px;
       }
       
       .desktop-only {
