@@ -31,12 +31,7 @@
 
     /* ─── ANNOUNCEMENT BANNER ─── */
     .announcement-banner {
-      position: fixed;
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
+      position: relative;
       min-height: var(--banner-h);
       padding: 8px 16px;
       background: var(--dark);
@@ -55,6 +50,7 @@
       line-height: 1.4;
     }
     .announcement-banner.is-hidden {
+      /* not used anymore - banner is no longer fixed */
       transform: translateY(-100%);
     }
     .announcement-banner span {
@@ -81,10 +77,7 @@
       font-weight: 600;
     }
 
-    /* Push content below fixed banner */
-    body > .hero {
-      margin-top: var(--banner-h);
-    }
+    /* Banner is no longer fixed — no push needed */
 
     /* ─── HERO ─── */
     .hero {
@@ -1110,7 +1103,6 @@
     document.addEventListener("DOMContentLoaded", function() {
       const stickyCta = document.getElementById("stickyCta");
       const banner = document.querySelector(".announcement-banner");
-      const SHOW_THRESHOLD = 0.33;   // verschijn na 33% scroll
       const HIDE_NEAR_BOTTOM = 300;  // verdwijn als je binnen 300px van de onderkant bent
 
       window.addEventListener("scroll", function() {
@@ -1118,15 +1110,15 @@
         const scrollPosition = window.scrollY;
         const distanceFromBottom = scrollHeight - scrollPosition;
 
-        const pastThreshold = scrollHeight > 0 && scrollPosition > (scrollHeight * SHOW_THRESHOLD);
+        // Toon sticky CTA zodra de banner volledig uit beeld is gescrolld
+        const bannerBottom = banner ? banner.getBoundingClientRect().bottom : 0;
+        const pastBanner = bannerBottom <= 0;
         const nearBottom = distanceFromBottom < HIDE_NEAR_BOTTOM;
 
-        if (pastThreshold && !nearBottom) {
+        if (pastBanner && !nearBottom) {
           stickyCta.classList.add("is-visible");
-          if (banner) banner.classList.add("is-hidden");
         } else {
           stickyCta.classList.remove("is-visible");
-          if (!nearBottom && banner) banner.classList.remove("is-hidden");
         }
       });
     });
