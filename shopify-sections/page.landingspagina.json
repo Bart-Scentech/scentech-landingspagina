@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "lp-hero": {
+      "type": "lp-hero",
+      "settings": {}
+    },
+    "lp-hotel-secret": {
+      "type": "lp-hotel-secret",
+      "settings": {}
+    },
+    "lp-reason-1": {
+      "type": "lp-reason",
+      "settings": {}
+    },
+    "lp-promo-block": {
+      "type": "lp-promo-block",
+      "settings": {}
+    },
+    "lp-sticky-cta": {
+      "type": "lp-sticky-cta",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "lp-hero",
+    "lp-hotel-secret",
+    "lp-reason-1",
+    "lp-promo-block",
+    "lp-sticky-cta"
+  ]
+}
