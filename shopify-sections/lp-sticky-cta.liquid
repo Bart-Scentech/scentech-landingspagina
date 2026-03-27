@@ -125,26 +125,27 @@
   (function() {
     document.addEventListener("DOMContentLoaded", function() {
       var stickyCta = document.getElementById("stickyCta-{{ section.id }}");
-      var banner = document.querySelector(".announcement-banner");
+      var hero = document.querySelector(".lp-hero-section");
       var HIDE_NEAR_BOTTOM = 300;
 
       if (!stickyCta) return;
 
-      window.addEventListener("scroll", function() {
+      function checkVisibility() {
         var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        var scrollPosition = window.scrollY;
-        var distanceFromBottom = scrollHeight - scrollPosition;
-
-        var bannerBottom = banner ? banner.getBoundingClientRect().bottom : 0;
-        var pastBanner = bannerBottom <= 0;
+        var distanceFromBottom = scrollHeight - window.scrollY;
+        var heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+        var pastHero = heroBottom <= 0;
         var nearBottom = distanceFromBottom < HIDE_NEAR_BOTTOM;
 
-        if (pastBanner && !nearBottom) {
+        if (pastHero && !nearBottom) {
           stickyCta.classList.add("is-visible");
         } else {
           stickyCta.classList.remove("is-visible");
         }
-      });
+      }
+
+      window.addEventListener("scroll", checkVisibility, { passive: true });
+      checkVisibility();
     });
   })();
 </script>
